@@ -366,6 +366,9 @@ class GNMCreateDialog(QtGui.QDialog, FORM_CLASS):
             
             
     def OnAddRule(self):
+        if self.comboBox_4.count() == 0 or self.comboBox_10.count() == 0 or self.comboBox_11.count() == 0 or self.comboBox_12.count() == 0 or self.comboBox_8.count() == 0 or self.comboBox_7.count() == 0:
+            self.ShowMsgBox('Can not make rule becuse one of the lists (for layers or for fields) is void')
+            return
         final_rule = ''
         if self.comboBox_3.currentText() == 'CLASS':
             final_rule = 'CLASS ' + self.MakeRealLayerName(self.comboBox_4.currentText(),self.comboBox_4.itemData(self.comboBox_4.currentIndex())) + ' ' + self.comboBox_5.currentText() + ' '
