@@ -184,7 +184,7 @@ class GNMManager:
         self.action_create_network = self.add_action(
             menu=None,
             icon_path=None,
-            text=self.tr(u'Create network'),
+            text=u'Создать сеть',#(u'Create network'),
             callback=self.OnCreateNetworkClicked,
             parent=self.iface.mainWindow(),
             add_to_toolbar=False,
@@ -193,7 +193,7 @@ class GNMManager:
         self.action_view_network = self.add_action(
             menu=None,
             icon_path=None,
-            text=self.tr(u'View network'),
+            text=u'Просмотреть сеть',#self.tr(u'View network'),
             callback=self.OnViewNetworkClicked,
             parent=self.iface.mainWindow(),
             add_to_toolbar=False,
@@ -202,7 +202,7 @@ class GNMManager:
         self.action_delete_network = self.add_action(
             menu=None,
             icon_path=None,
-            text=self.tr(u'Delete network'),
+            text=u'Удалить сеть',#self.tr(u'Delete network'),
             callback=self.OnDeleteNetworkClicked,
             parent=self.iface.mainWindow(),
             add_to_toolbar=False,
@@ -211,20 +211,20 @@ class GNMManager:
         self.action_current_network = self.add_action(
             menu=None,
             icon_path=None,
-            text=self.tr(u'Current network'),
+            text=u'Текущая сеть',#self.tr(u'Current network'),
             callback=None,
             parent=self.iface.mainWindow(),
             add_to_toolbar=False,
             add_to_menu=True,
             enabled_flag=False) # It will be enabled only if some network is currently added to the project.
-        menu_current = QMenu('ddd')
+        menu_current = QMenu('menu')
         self.action_current_network.setMenu(menu_current)
         
         # Sub menus.         
         self.action_manage_cur_network = self.add_action(
             menu=menu_current,
             icon_path=None,
-            text=self.tr(u'Manage'),
+            text=u'Управление',#self.tr(u'Manage'),
             callback=None, # For now its not available to manage networks.
             parent=self.iface.mainWindow(),
             add_to_toolbar=False,
@@ -233,7 +233,7 @@ class GNMManager:
         self.action_analyse_cur_network = self.add_action(
             menu=menu_current,
             icon_path=None,
-            text=self.tr(u'Analysis'),
+            text=u'Анализ',#self.tr(u'Analysis'),
             callback=None,
             parent=self.iface.mainWindow(),
             add_to_toolbar=False,
@@ -244,7 +244,7 @@ class GNMManager:
         self.action_settings_cur_network = self.add_action(
             menu=menu_current,
             icon_path=None,
-            text=self.tr(u'Settings'),
+            text=u'Настройки',#self.tr(u'Settings'),
             callback=self.OnSettingsNetworkClicked,
             parent=self.iface.mainWindow(),
             add_to_toolbar=False,
@@ -256,79 +256,79 @@ class GNMManager:
         self.action_start_flag = self.add_action(
             menu=menu_analysis,
             icon_path=ic_path,
-            text=self.tr(u'Mark start point'),
+            text=u'Задать начальную точку',#self.tr(u'Mark start point'),
             callback=self.OnStartFlagClicked,
             parent=self.iface.mainWindow(),
             add_to_toolbar=True,
             add_to_menu=True,
             enabled_flag=False,
-            status_tip=self.tr(u'Select the point feature in any GNM network layer and than click this button'))
+            status_tip=u'Выберите точечный объект в любом слое подгруппы Data, а затем нажмите эту кнопку')#self.tr(u'Select the point feature in any GNM network layer and than click this button'))
         ic_path = 'C:/Users/Mikhail/NextGIS QGIS future/python/plugins/gnmmanager/img/end.png'
         self.action_end_flag = self.add_action(
             menu=menu_analysis,
             icon_path=ic_path,
-            text=self.tr(u'Mark end point'),
+            text=u'Задать конечную точку',#self.tr(u'Mark end point'),
             callback=self.OnEndFlagClicked,
             parent=self.iface.mainWindow(),
             add_to_toolbar=True,
             add_to_menu=True,
             enabled_flag=False,
-            status_tip=self.tr(u'Select the point feature in any GNM network layer and than click this button'))          
+            status_tip=u'Выберите точечный объект в любом слое подгруппы Data, а затем нажмите эту кнопку')#self.tr(u'Select the point feature in any GNM network layer and than click this button'))          
         ic_path = 'C:/Users/Mikhail/NextGIS QGIS future/python/plugins/gnmmanager/img/block.png'
         self.action_block_flags = self.add_action(
             menu=menu_analysis,
             icon_path=ic_path,
-            text=self.tr(u'Mark blocked points'),
+            text=u'Блокировать объекты',#self.tr(u'Mark blocked points'),
             callback=self.OnBlockFlagClicked,
             parent=self.iface.mainWindow(),
             add_to_toolbar=True,
             add_to_menu=True,
             enabled_flag=False,
-            status_tip=self.tr(u'Select several point features in any GNM network layers and than click this button'))            
+            status_tip=u'Выберите точечные объекты в любом слое подгруппы Data, а затем нажмите эту кнопку')#self.tr(u'Select several point features in any GNM network layers and than click this button'))            
         ic_path = 'C:/Users/Mikhail/NextGIS QGIS future/python/plugins/gnmmanager/img/remove_all.png'
         self.action_remove_flags = self.add_action(
             menu=menu_analysis,
             icon_path=ic_path,
-            text=self.tr(u'Remove all flags'),
+            text=u'Удалить все флаги',#self.tr(u'Remove all flags'),
             callback=self.OnRemoveFlagClicked,
             parent=self.iface.mainWindow(),
             add_to_toolbar=True,
             add_to_menu=True,
             enabled_flag=False,
-            status_tip=self.tr(u'Click this to remove all flags: start, end and block')) 
+            status_tip=u'Нажмите, чтобы удалить все флаги: начальной, конечной и блокированных точек')#self.tr(u'Click this to remove all flags: start, end and block')) 
         ic_path = 'C:/Users/Mikhail/NextGIS QGIS future/python/plugins/gnmmanager/img/path.png'
         self.action_path = self.add_action(
             menu=menu_analysis,
             icon_path=ic_path,
-            text=self.tr(u'Calculate shortest path'),
+            text=u'Расчёт кратчайшего пути',#self.tr(u'Calculate shortest path'),
             callback=self.OnPathClicked,
             parent=self.iface.mainWindow(),
             add_to_toolbar=True,
             add_to_menu=True,
             enabled_flag=False,
-            status_tip=self.tr(u'---'))             
+            status_tip=u'Задайте начальную и конечную точку прежде чем проводить расчёт')#self.tr(u'---'))             
         ic_path = 'C:/Users/Mikhail/NextGIS QGIS future/python/plugins/gnmmanager/img/paths.png'
         self.action_paths = self.add_action(
             menu=menu_analysis,
             icon_path=ic_path,
-            text=self.tr(u'Calculate several shortest paths'),
+            text=u'Расчёт нескольких кратчайших путей',#self.tr(u'Calculate several shortest paths'),
             callback=self.OnPathsClicked,
             parent=self.iface.mainWindow(),
             add_to_toolbar=True,
             add_to_menu=True,
             enabled_flag=False,
-            status_tip=self.tr(u'---'))             
+            status_tip=u'Задайте количество необходимых путей для поиска в настройках текущей сети')#self.tr(u'---'))             
         ic_path = 'C:/Users/Mikhail/NextGIS QGIS future/python/plugins/gnmmanager/img/connectivity.png'
         self.action_connectivity = self.add_action(
             menu=menu_analysis,
             icon_path=ic_path,
-            text=self.tr(u'Calculate connectivity'),
+            text=u'Расчёт компонент связности',#self.tr(u'Calculate connectivity'),
             callback=self.OnConnectivityClicked,
             parent=self.iface.mainWindow(),
             add_to_toolbar=True,
             add_to_menu=True,
             enabled_flag=False,
-            status_tip=self.tr(u'---')) 
+            status_tip=u'Задайте объекты, являющиеся источниками через правила')#self.tr(u'---')) 
             
             
             
@@ -423,18 +423,18 @@ class GNMManager:
     def OnStartFlagClicked(self):
         selected_feature = self.GetSelectedPointFeature()
         if selected_feature is None:
-            self.ShowMsgBox('Select only one point feature in the group \"GNM network data\"!')
+            self.ShowMsgBox(u'Выберите только одну точку в подгруппе Data сетевых данных')#('Select only one point feature in the group \"GNM network\"!')
             return         
         # Get point feature coordinates and feature's GFID, checking if the point has already some flag.
         gfid = selected_feature.attribute('gfid')
         if gfid == self.NETWORK_STARTFLAG_GFID:
             return # Just exit if this point is already a start point.
         if gfid == self.NETWORK_ENDFLAG_GFID:
-            self.ShowMsgBox('The point can not be start and end at the same time, select another point!')
+            self.ShowMsgBox(u'Точка не может быть начальной и конечной одновременно. Задайте другую точку')#('The point can not be start and end at the same time, select another point!')
             return
         for bl_gfid in self.NETWORK_BLOCKFLAG_GFIDS:
             if bl_gfid == gfid:
-                self.ShowMsgBox('The start point can not be blocked, select another point!')
+                self.ShowMsgBox(u'Стартовая точка не может быть блокирована. Задайте другую точку')#('The start point can not be blocked, select another point!')
                 return
         self.NETWORK_STARTFLAG_GFID = gfid
         # Remove old flag feature.
@@ -458,17 +458,17 @@ class GNMManager:
     # This method is similar to OnStartFlagClicked
         selected_feature = self.GetSelectedPointFeature()
         if selected_feature is None:
-            self.ShowMsgBox('Select only one point feature in the group \"GNM network data\"!')
+            self.ShowMsgBox(u'Выберите только одну точку в подгруппе Data сетевых данных')#('Select only one point feature in the group \"GNM network data\"!')
             return
         gfid = selected_feature.attribute('gfid')
         if gfid == self.NETWORK_ENDFLAG_GFID:
             return         
         if gfid == self.NETWORK_STARTFLAG_GFID:
-            self.ShowMsgBox('The point can not be start and end at the same time, select another point!')
+            self.ShowMsgBox(u'Точка не может быть начальной и конечной одновременно. Задайте другую точку')#('The point can not be start and end at the same time, select another point!')
             return
         for bl_gfid in self.NETWORK_BLOCKFLAG_GFIDS:
             if bl_gfid == gfid:
-                self.ShowMsgBox('The end point can not be blocked, select another point!')
+                self.ShowMsgBox(u'Конечная точка не может быть блокирована. Задайте другую точку')#('The end point can not be blocked, select another point!')
                 return
         self.NETWORK_ENDFLAG_GFID = gfid
         ids = [f.id() for f in self.NETWORK_ENDFLAG_LAYER.getFeatures()]
@@ -532,10 +532,10 @@ class GNMManager:
     
     def OnPathClicked(self):
         if self.NETWORK_STARTFLAG_GFID == -1:
-            self.ShowMsgBox('The start point has not been set! Set it before any calculations')
+            self.ShowMsgBox(u'Начальная точка не была задана. Задайте её перед расчётами кратчайших путей')#('The start point has not been set! Set it before any calculations')
             return            
         if self.NETWORK_ENDFLAG_GFID == -1:
-            self.ShowMsgBox('The end point has not been set! Set it before calculating shortest paths')
+            self.ShowMsgBox(u'Конечная точка не была задана. Задайте её перед расчётами кратчайших путей')#('The end point has not been set! Set it before calculating shortest paths')
             return
             
         for bl_gfid in self.NETWORK_BLOCKFLAG_GFIDS:
@@ -543,9 +543,9 @@ class GNMManager:
         
         path = self.NETWORK_ANALYSER.DijkstraShortestPath(self.NETWORK_STARTFLAG_GFID,self.NETWORK_ENDFLAG_GFID)
         if path is None:
-            self.ShowMsgBox('Some error occurs while calculating path!')
+            self.ShowMsgBox(u'Произошла ошибка в процессе расчёта кратчайшего пути')#('Some error occurs while calculating path!')
         elif len(path) <= 0:
-            self.ShowMsgBox('OK, but there is no path between start and end points')   
+            self.ShowMsgBox(u'Расчёт выполнен успешно, но пути между двумя точками не существует')#('OK, but there is no path between start and end points')   
         else:  
             #self.ShowMsgBox('Path found and displayed successfully. It contains {0} elements'.format(len(path))) 
             gfids = []
@@ -562,10 +562,10 @@ class GNMManager:
         
     def OnPathsClicked(self):
         if self.NETWORK_STARTFLAG_GFID == -1:
-            self.ShowMsgBox('The start point has not been set! Set it before any calculations')
+            self.ShowMsgBox(u'Начальная точка не была задана. Задайте её перед расчётами кратчайших путей')#('The start point has not been set! Set it before any calculations')
             return            
         if self.NETWORK_ENDFLAG_GFID == -1:
-            self.ShowMsgBox('The end point has not been set! Set it before calculating shortest paths')
+            self.ShowMsgBox(u'Конечная точка не была задана. Задайте её перед расчётами кратчайших путей')#('The end point has not been set! Set it before calculating shortest paths')
             return
             
         for bl_gfid in self.NETWORK_BLOCKFLAG_GFIDS:
@@ -573,11 +573,13 @@ class GNMManager:
             
         paths = self.NETWORK_ANALYSER.YensShortestPaths(self.NETWORK_STARTFLAG_GFID,self.NETWORK_ENDFLAG_GFID,self.SETTING_K)    
         if paths is None:
-            self.ShowMsgBox('Some error occurs while calculating paths!')
+            self.ShowMsgBox(u'Произошла ошибка в процессе расчёта кратчайшего пути')#('Some error occurs while calculating paths!')
         elif len(paths) <= 0:
-            self.ShowMsgBox('OK, but there is no path between start and end points')  
-        for path in paths:
-            pass
+            self.ShowMsgBox(u'Расчёт выполнен успешно, но пути между двумя точками не существует')#('OK, but there is no path between start and end points')  
+# TEMP -------------------------------------------------------------------------------------------------
+        #for path in paths:
+        self.ShowMsgBox(u'Найдено {0} кратчайших путей'.format(len(paths)))
+# ------------------------------------------------------------------------------------------------------
             
         for bl_gfid in self.NETWORK_BLOCKFLAG_GFIDS:
             self.NETWORK_ANALYSER.UnblockVertex(bl_gfid)             
@@ -605,7 +607,7 @@ class GNMManager:
                     start_gfids.append(gfid)
         
         if len(start_gfids) == 0:
-            self.ShowMsgBox('OK, but there is no emitter features in the network')
+            self.ShowMsgBox(u'')#('OK, but there is no emitter features in the network')
         else:
             connectivity = self.NETWORK_ANALYSER.ConnectedComponents(start_gfids)
             self.UpdateResultLayer(connectivity,self.NETWORK_RESULT_CONNECTIVITY_LAYER)
@@ -678,7 +680,7 @@ class GNMManager:
         self.NETWORK_ANALYSER = gnm.CreateStdAnalyser()
         err = self.NETWORK_ANALYSER.PrepareGraph(self.NETWORK)
         if err != 0:
-            self.ShowMsgBox('Error while initializing network in current project (unable to initialize graph analyser)!') 
+            self.ShowMsgBox(u'Не удалось инициализировать сеть в текущем проекте! (не удалось создать объект для сетевого анализа)')#('Error while initializing network in current project (unable to initialize graph analyser)!') 
             self.ClearCurrentNetworkProject() # Clear all initialized main variables.           
             return
             
@@ -718,7 +720,7 @@ class GNMManager:
         
         self.NETWORK_STARTFLAG_LAYER = QgsVectorLayer(uri_layer,'_gnm_start_flag',"memory")
         if self.NETWORK_STARTFLAG_LAYER is None:
-            self.ShowMsgBox('Error while initializing network in current project (unable to create flag memory layer)!') 
+            self.ShowMsgBox(u'Не удалось инициализировать сеть в текущем проекте! (не удалось создать системный слой флагов)')#('Error while initializing network in current project (unable to create flag memory layer)!') 
             return False
         self.NETWORK_STARTFLAG_LAYER.setReadOnly(True)
         QgsMapLayerRegistry.instance().addMapLayer(self.NETWORK_STARTFLAG_LAYER,False)
@@ -726,7 +728,7 @@ class GNMManager:
         
         self.NETWORK_ENDFLAG_LAYER = QgsVectorLayer(uri_layer,'_gnm_end_flag',"memory")
         if self.NETWORK_ENDFLAG_LAYER is None:
-            self.ShowMsgBox('Error while initializing network in current project (unable to create inner memory layer)!') 
+            self.ShowMsgBox(u'Не удалось инициализировать сеть в текущем проекте! (не удалось создать системный слой флагов)')#('Error while initializing network in current project (unable to create inner memory layer)!') 
             return False    
         self.NETWORK_ENDFLAG_LAYER.setReadOnly(True)
         QgsMapLayerRegistry.instance().addMapLayer(self.NETWORK_ENDFLAG_LAYER,False)
@@ -734,7 +736,7 @@ class GNMManager:
         
         self.NETWORK_BLOCKFLAG_LAYER = QgsVectorLayer(uri_layer,'_gnm_block_flags',"memory")
         if self.NETWORK_BLOCKFLAG_LAYER is None:
-            self.ShowMsgBox('Error while initializing network in current project (unable to create inner memory layer)!') 
+            self.ShowMsgBox(u'Не удалось инициализировать сеть в текущем проекте! (не удалось создать системный слой флагов)')#('Error while initializing network in current project (unable to create inner memory layer)!') 
             return False
         self.NETWORK_BLOCKFLAG_LAYER.setReadOnly(True)
         QgsMapLayerRegistry.instance().addMapLayer(self.NETWORK_BLOCKFLAG_LAYER,False)
@@ -748,7 +750,7 @@ class GNMManager:
         # TODO: use function 'add layers' because of issue: http://qgis.org/api/classQgsMapLayerRegistry.html#a3d0d19c86467341bdd62471c5de61376
         classes_layer = self.LayerLoader('_gnm_classes','system')
         if not classes_layer.isValid():
-            self.ShowMsgBox('Error while initializing network in current project (unable to load one of the system layers)!') 
+            self.ShowMsgBox(u'Не удалось инициализировать сеть в текущем проекте! (не удалось загрузить системный слой класов)')#('Error while initializing network in current project (unable to load one of the system layers)!') 
             return False
         spatial_layers = []
         iter = classes_layer.getFeatures()
@@ -760,7 +762,7 @@ class GNMManager:
                 continue
             lr = self.LayerLoader(val,'class')
             if not lr.isValid():
-                self.ShowMsgBox('Error while initializing network in current project (unable to load one of the class layers)!')
+                self.ShowMsgBox(u'Не удалось инициализировать сеть в текущем проекте! (не удалось загрузить один из классовых слоёв сети)')#('Error while initializing network in current project (unable to load one of the class layers)!')
                 return False
 # TEMP ----------------------------------------------------------------------------------------------------
             lr.setReadOnly(True)
@@ -779,7 +781,7 @@ class GNMManager:
         
         self.NETWORK_RESULT_PATH_LAYER = QgsVectorLayer(uri_layer,'_gnm_path_result',"memory")
         if self.NETWORK_RESULT_PATH_LAYER is None:
-            self.ShowMsgBox('Error while initializing network in current project (unable to create inner memory layer)!') 
+            self.ShowMsgBox(u'Не удалось инициализировать сеть в текущем проекте! (не удалось создать системный слой результатов)')#('Error while initializing network in current project (unable to create inner memory layer)!') 
             return False  
         self.NETWORK_RESULT_PATH_LAYER.setReadOnly(True)
         QgsMapLayerRegistry.instance().addMapLayer(self.NETWORK_RESULT_PATH_LAYER,False)
@@ -787,7 +789,7 @@ class GNMManager:
         
         self.NETWORK_RESULT_CONNECTIVITY_LAYER = QgsVectorLayer(uri_layer,'_gnm_con_result',"memory")
         if self.NETWORK_RESULT_CONNECTIVITY_LAYER is None:
-            self.ShowMsgBox('Error while initializing network in current project (unable to create inner memory layer)!') 
+            self.ShowMsgBox(u'Не удалось инициализировать сеть в текущем проекте! (не удалось создать системный слой результатов)')#('Error while initializing network in current project (unable to create inner memory layer)!') 
             return False 
         self.NETWORK_RESULT_CONNECTIVITY_LAYER.setReadOnly(True)
         QgsMapLayerRegistry.instance().addMapLayer(self.NETWORK_RESULT_CONNECTIVITY_LAYER,False)

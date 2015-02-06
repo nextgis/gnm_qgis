@@ -48,16 +48,23 @@ class GNMViewDialog(QtGui.QDialog, FORM_CLASS):
         super(GNMViewDialog, self).__init__(parent)
         self.setupUi(self)
         
-        self.tabWidget.setTabText(0,'File or directory')
-        self.tabWidget.setTabText(1,'PostGIS database')
+        self.tabWidget.setTabText(0,u'Файл или директория')#'File or directory')
+        self.tabWidget.setTabText(1,u'База данных PostGIS')#'PostGIS database')
         
         self.pushButton_3.clicked.connect(self.OnViewFileDirClicked)
         self.pushButton_4.clicked.connect(self.OnViewPostgisDbClicked)
         self.pushButton_2.clicked.connect(self.OnAddClicked)
-        self.textEdit.append('No network selected')
+        self.textEdit.append(u'Сеть пока не выбрана')#('No network selected')
         
         self.pushButton.clicked.connect(self.OnDirDlgClicked)
         
+        self.label.setText(u'Каталог')
+        self.pushButton_4.setText(u'Считать информацию')
+        self.pushButton_3.setText(u'Считать информацию')
+        self.pushButton_2.setText(u'Добавить в проект')
+        self.groupBox.setTitle(u'Выбранная сеть')
+    
+    
     
 
     def my_exec_(self,ok_to_add_network):
@@ -65,7 +72,7 @@ class GNMViewDialog(QtGui.QDialog, FORM_CLASS):
         self.network_name = ''
         self.network_format = ''      
         self.ok_to_add_network = ok_to_add_network
-        self.pushButton_2.setEnabled(self.ok_to_add_network)
+        self.pushButton_2.setEnabled(False)
         return self.exec_()
         
          
@@ -103,12 +110,12 @@ class GNMViewDialog(QtGui.QDialog, FORM_CLASS):
         self.network = gnm.GdalOpenNetwork(self.network_name)
         self.textEdit.clear()
         if self.network is None:
-            self.textEdit.append('Error processing selected network')
+            self.textEdit.append(u'Не удалось открыть сеть')#('Error processing selected network')
             self.pushButton_2.setEnabled(False)
         else:
-            self.textEdit.append('Network successfully processed!')
+            self.textEdit.append(u'Сеть успешно открыта')#('Network successfully processed!')
             self.textEdit.append('')
-            self.textEdit.append('Network info:')
+            self.textEdit.append(u'Информация о сети:')#('Network info:')
             network_ds = self.network.GetDataset()
             layer_meta = network_ds.GetLayerByName('_gnm_meta')
             layer_meta.ResetReading()
