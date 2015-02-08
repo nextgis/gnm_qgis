@@ -21,7 +21,7 @@
  ***************************************************************************/
 """
 from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
-from PyQt4.QtGui import QAction, QIcon, QMenu, QMessageBox
+from PyQt4.QtGui import QAction, QIcon, QMenu, QMessageBox, QColor
 
 # Import the code for the dialog
 from gnm_create_dialog import GNMCreateDialog
@@ -708,6 +708,7 @@ class GNMManager:
         root_layer_tree = QgsProject.instance().layerTreeRoot()
         # TODO: add networks name to the name of the group.
         common_group = root_layer_tree.addGroup('GNM Network')
+        plugin_path = os.path.dirname(os.path.realpath(__file__))
     
         # 1. Create flag layers.
         flags_group = common_group.addGroup('Flags')
@@ -725,6 +726,16 @@ class GNMManager:
         self.NETWORK_STARTFLAG_LAYER.setReadOnly(True)
         QgsMapLayerRegistry.instance().addMapLayer(self.NETWORK_STARTFLAG_LAYER,False)
         flags_group.addLayer(self.NETWORK_STARTFLAG_LAYER) 
+        symbols = self.NETWORK_STARTFLAG_LAYER.rendererV2().symbols()
+        symbol = symbols[0]
+        symbol.deleteSymbolLayer(0)
+        sl = QgsSvgMarkerSymbolLayerV2() # http://qgis.org/api/classQgsSvgMarkerSymbolLayerV2.html
+        sl.setPath(plugin_path + '/img/start_flag.svg')
+        sl.setSize(6.0)
+        sl.setHorizontalAnchorPoint(QgsMarkerSymbolLayerV2.Left)
+        sl.setVerticalAnchorPoint(QgsMarkerSymbolLayerV2.Bottom)
+        symbol.appendSymbolLayer(sl) 
+        qgis.utils.iface.legendInterface().refreshLayerSymbology(self.NETWORK_STARTFLAG_LAYER)
         
         self.NETWORK_ENDFLAG_LAYER = QgsVectorLayer(uri_layer,'_gnm_end_flag',"memory")
         if self.NETWORK_ENDFLAG_LAYER is None:
@@ -733,6 +744,16 @@ class GNMManager:
         self.NETWORK_ENDFLAG_LAYER.setReadOnly(True)
         QgsMapLayerRegistry.instance().addMapLayer(self.NETWORK_ENDFLAG_LAYER,False)
         flags_group.addLayer(self.NETWORK_ENDFLAG_LAYER) 
+        symbols = self.NETWORK_ENDFLAG_LAYER.rendererV2().symbols()
+        symbol = symbols[0]
+        symbol.deleteSymbolLayer(0)
+        sl = QgsSvgMarkerSymbolLayerV2() 
+        sl.setPath(plugin_path + '/img/end_flag.svg')
+        sl.setSize(6.0)
+        sl.setHorizontalAnchorPoint(QgsMarkerSymbolLayerV2.Left)
+        sl.setVerticalAnchorPoint(QgsMarkerSymbolLayerV2.Bottom)
+        symbol.appendSymbolLayer(sl) 
+        qgis.utils.iface.legendInterface().refreshLayerSymbology(self.NETWORK_ENDFLAG_LAYER)        
         
         self.NETWORK_BLOCKFLAG_LAYER = QgsVectorLayer(uri_layer,'_gnm_block_flags',"memory")
         if self.NETWORK_BLOCKFLAG_LAYER is None:
@@ -740,10 +761,17 @@ class GNMManager:
             return False
         self.NETWORK_BLOCKFLAG_LAYER.setReadOnly(True)
         QgsMapLayerRegistry.instance().addMapLayer(self.NETWORK_BLOCKFLAG_LAYER,False)
-        flags_group.addLayer(self.NETWORK_BLOCKFLAG_LAYER) 
-        
-        # Set layer default styles.
-        #http://gis.stackexchange.com/questions/70058/how-to-change-the-color-of-a-vector-layer-in-pyqgis        
+        flags_group.addLayer(self.NETWORK_BLOCKFLAG_LAYER)         
+        symbols = self.NETWORK_BLOCKFLAG_LAYER.rendererV2().symbols()
+        symbol = symbols[0]
+        symbol.deleteSymbolLayer(0)
+        sl = QgsSvgMarkerSymbolLayerV2() 
+        sl.setPath(plugin_path + '/img/block_flag.svg')
+        sl.setSize(6.0)
+        sl.setHorizontalAnchorPoint(QgsMarkerSymbolLayerV2.Left)
+        sl.setVerticalAnchorPoint(QgsMarkerSymbolLayerV2.Bottom)
+        symbol.appendSymbolLayer(sl)  
+        qgis.utils.iface.legendInterface().refreshLayerSymbology(self.NETWORK_BLOCKFLAG_LAYER)
         
         # 2. Load class layers.
         class_group = common_group.addGroup('Data')
@@ -770,7 +798,16 @@ class GNMManager:
             QgsMapLayerRegistry.instance().addMapLayer(lr,False)
             class_group.addLayer(lr) 
             self.NETWORK_CLASS_LAYERS.append(lr) 
-        
+            # Set default black colour for lines:
+            if lr.geometryType() == QGis.Line:
+                symbols = lr.rendererV2().symbols()
+                symbol = symbols[0]
+                symbol.deleteSymbolLayer(0)
+                sl = QgsSimpleLineSymbolLayerV2()
+                sl.setColor(QColor(0,0,0))
+                symbol.appendSymbolLayer(sl) 
+                qgis.utils.iface.legendInterface().refreshLayerSymbology(lr)
+                
         # 3. Create result layers.
         results_group = common_group.addGroup('Results')
 # TEMP --------------------------------------------------------------------------------        
@@ -785,7 +822,15 @@ class GNMManager:
             return False  
         self.NETWORK_RESULT_PATH_LAYER.setReadOnly(True)
         QgsMapLayerRegistry.instance().addMapLayer(self.NETWORK_RESULT_PATH_LAYER,False)
-        results_group.addLayer(self.NETWORK_RESULT_PATH_LAYER)   
+        results_group.addLayer(self.NETWORK_RESULT_PATH_LAYER)    
+        symbols = self.NETWORK_RESULT_PATH_LAYER.rendererV2().symbols()
+        symbol = symbols[0]
+        symbol.deleteSymbolLayer(0)
+        sl = QgsSimpleLineSymbolLayerV2()
+        sl.setWidth(1.9)
+        sl.setColor(QColor(255,0,0))
+        symbol.appendSymbolLayer(sl)      
+        qgis.utils.iface.legendInterface().refreshLayerSymbology(self.NETWORK_RESULT_PATH_LAYER)  
         
         self.NETWORK_RESULT_CONNECTIVITY_LAYER = QgsVectorLayer(uri_layer,'_gnm_con_result',"memory")
         if self.NETWORK_RESULT_CONNECTIVITY_LAYER is None:
@@ -794,7 +839,15 @@ class GNMManager:
         self.NETWORK_RESULT_CONNECTIVITY_LAYER.setReadOnly(True)
         QgsMapLayerRegistry.instance().addMapLayer(self.NETWORK_RESULT_CONNECTIVITY_LAYER,False)
         results_group.addLayer(self.NETWORK_RESULT_CONNECTIVITY_LAYER)              
-
+        symbols = self.NETWORK_RESULT_CONNECTIVITY_LAYER.rendererV2().symbols()
+        symbol = symbols[0]
+        symbol.deleteSymbolLayer(0)
+        sl = QgsSimpleLineSymbolLayerV2()
+        sl.setWidth(1.9)
+        sl.setColor(QColor(0,157,255))
+        symbol.appendSymbolLayer(sl)
+        qgis.utils.iface.legendInterface().refreshLayerSymbology(self.NETWORK_RESULT_CONNECTIVITY_LAYER)
+        
         return True     
             
 
