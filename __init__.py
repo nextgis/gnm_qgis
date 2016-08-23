@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 """
 /***************************************************************************
- GNMDeleteDialog
+ QNetwork
                                  A QGIS plugin
- Manages GDAL GNM networks
+ Manage and analyse networks via GDAL
                              -------------------
-        begin                : 2015-02-03
+        begin                : 2016-08-23
+        copyright            : (C) 2016 by NextGIS
+        email                : info@nextgis.com
         git sha              : $Format:%H$
-        copyright            : (C) 2015 by NextGIS
-        email                : gusevmihs@gmail.com
  ***************************************************************************/
 
 /***************************************************************************
@@ -19,26 +19,17 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+ This script initializes the plugin, making it known to QGIS.
 """
 
-import os
 
-from PyQt4 import QtGui, uic
+# noinspection PyPep8Naming
+def classFactory(iface):  # pylint: disable=invalid-name
+    """Load QNetwork class from file QNetwork.
 
-from osgeo import ogr
-from osgeo import gnm
-
-FORM_CLASS, _ = uic.loadUiType(os.path.join(
-    os.path.dirname(__file__), 'gnm_delete_dialog_base.ui'))
-
-
-class GNMDeleteDialog(QtGui.QDialog, FORM_CLASS):
-    def __init__(self, parent=None):
-        """Constructor."""
-        super(GNMDeleteDialog, self).__init__(parent)
-        # Set up the user interface from Designer.
-        # After setupUI you can access any designer object by doing
-        # self.<objectname>, and you can use autoconnect slots - see
-        # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
-        # #widgets-and-dialogs-with-auto-connect
-        self.setupUi(self)
+    :param iface: A QGIS interface instance.
+    :type iface: QgsInterface
+    """
+    #
+    from .gnm_manager import GNMManager
+    return GNMManager(iface)
