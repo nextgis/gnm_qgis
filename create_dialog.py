@@ -21,15 +21,19 @@
  ***************************************************************************/
 """
 
+import _gnm_check
+GNM_FOUND = _gnm_check.haveGnm()
+if GNM_FOUND:
+    from osgeo import gnm
+from osgeo import gdal
+from osgeo import ogr
+
 import os
 from PyQt4 import QtGui, uic
 from PyQt4.QtCore import pyqtSlot
 from qgis.core import *
 from PyQt4.QtGui import QIcon
 from PyQt4.QtCore import Qt
-from osgeo import gdal
-from osgeo import ogr
-from osgeo import gnm
 
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(

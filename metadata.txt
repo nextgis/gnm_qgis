@@ -10,11 +10,11 @@
 name=QNetwork
 qgisMinimumVersion=2.0
 description=Manage and analyse networks via GDAL
-version=0.1
+version=0.1.1
 author=NextGIS
 email=info@nextgis.com
 
-about=Manage and analyse networks of different geospatial formats using GNM (Geographical Network Model) which is a part of GDAL library. Only ESRI Shapefile format for building networks is currently supported. The plugin requires that QGIS is built with GDAL 2.1 (or later) in which GNM is turned on.
+about=Manage and analyse networks of different geospatial formats using GNM (Geographical Network Model) which is a part of GDAL library. Currently only ESRI Shapefile format is supported for building networks. You can create connectivity over a set of Shapefiles and after that do Dijkstra shortest path search, K-shortest paths search or Connected components search. Also you are able to block features and see the changes in results of such analysis. Important: the plugin requires that QGIS is built with GDAL 2.1 (or later) in which GNM is turned on.
 
 tracker=https://github.com/nextgis/gnm_qgis/issues
 repository=https://github.com/nextgis/gnm_qgis

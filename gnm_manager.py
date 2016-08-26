@@ -21,6 +21,13 @@
  ***************************************************************************/
 """
 
+import _gnm_check
+GNM_FOUND = _gnm_check.haveGnm()
+if GNM_FOUND:
+    from osgeo import gnm
+from osgeo import gdal
+from osgeo import ogr
+
 from PyQt4 import QtGui
 #from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
 #from PyQt4.QtGui import QAction, QIcon, QMenu, QMessageBox, QColor, QToolButton
@@ -32,9 +39,6 @@ from remove_dialog import GNMRemoveDialog
 import os.path
 from qgis.core import *
 import qgis.utils
-from osgeo import gdal
-from osgeo import ogr
-from osgeo import gnm
 from _gnm_feature_tool import IdentifyGeometry
 
 
@@ -271,8 +275,14 @@ class GNMManager:
             status_tip=self.tr(u'Calculate the tree from start node to all connected nodes'),
             add_to_toolbar = True)
             
+        # Initialize map tool.
         self.map_tool = IdentifyGeometry(self.iface.mapCanvas())
         QObject.connect(self.map_tool , SIGNAL("geomIdentified") , self.onIdentifyFeature)
+        
+        # Block all GUI if gnm module is not found in QGIS:
+        if GNM_FOUND == False:
+            self.action_create_network.setEnabled(False)
+            self.action_load_network.setEnabled(False)
 
 
     def unload(self):
